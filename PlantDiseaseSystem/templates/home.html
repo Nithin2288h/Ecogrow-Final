@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EcoGrow</title>
+  <link rel="icon" href="https://cdn.pixabay.com/photo/2020/08/05/13/28/eco-5465481_960_720.png" type="image/png">
+  <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+  <style>
+    body {
+      background: url("https://img.freepik.com/free-photo/detail-rice-plant-sunset-valencia-with-plantation-out-focus-rice-grains-plant-seed_181624-25838.jpg") 
+                  no-repeat center center fixed;
+      background-size: cover;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      color: #1e3932;
+    }
+    /* Navbar */
+    .navbar {
+      background-color: #1e8a3a !important;
+    }
+    .navbar .navbar-brand {
+      font-weight: bold;
+      color: #fff !important;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .navbar .navbar-brand img {
+      width: 35px;
+      height: 35px;
+    }
+    .navbar .nav-link {
+      color: #fff !important;
+      margin-left: 10px;
+      font-weight: 500;
+    }
+    .navbar .nav-link:hover {
+      text-decoration: underline;
+    }
+    /* Hero Section */
+    .hero-wrapper {
+      text-align: center;
+      padding: 50px 20px 20px;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 10px;
+      margin: 20px auto;
+      max-width: 900px;
+    }
+    .hero-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #1e8a3a;
+      margin-bottom: 10px;
+    }
+    .hero-sub {
+      font-size: 1.1rem;
+      color: #3b5c4a;
+      margin-bottom: 30px;
+    }
+    /* Options Section */
+    .options-section {
+      background: rgba(246, 255, 246, 0.85);
+      padding: 40px 20px;
+      text-align: center;
+      border-radius: 12px;
+      max-width: 1100px;
+      margin: 0 auto 40px;
+    }
+    .options-title {
+      font-size: 2rem;
+      font-weight: 600;
+      color: #1e8a3a;
+      margin-bottom: 30px;
+    }
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .option-card {
+      border: 2px solid #1e8a3a;
+      border-radius: 12px;
+      background: #fff;
+      padding: 20px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .option-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0px 6px 16px rgba(30, 138, 58, 0.15);
+    }
+    .option-card h3 {
+      color: #1e8a3a;
+      margin-bottom: 10px;
+    }
+    .option-card p {
+      font-size: 0.95rem;
+      margin-bottom: 15px;
+    }
+    .option-card a {
+      text-decoration: none;
+    }
+    .btn-success {
+      background-color: #1e8a3a;
+      border-color: #1e8a3a;
+      border-radius: 8px;
+      padding: 10px 20px;
+      font-weight: 600;
+    }
+    .btn-success:hover {
+      background-color: #16682c;
+    }
+    /* Extra: eco green class for specific buttons (Crop Orders & Login)
+       Only affects the two buttons we want to theme without changing the rest
+    */
+    .btn-ecogreen {
+      background-color: #4CAF50;
+      border-color: #4CAF50;
+      color: #ffffff !important;
+      border-radius: 8px;
+      padding: 10px 20px;
+      font-weight: 600;
+    }
+    .btn-ecogreen:hover { background-color: #45a049; }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img src="https://cdn.pixabay.com/photo/2020/08/05/13/28/eco-5465481_960_720.png" alt="EcoGrow Logo" class="d-inline-block">
+        EcoGrow
+      </a>
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="/homeguide" target="_blank">Crop Guidance</a></li>
+        <li class="nav-item"><a class="nav-link" href="/static/weather/weather.html" target="_blank">Weather</a></li>
+        <li class="nav-item"><a class="nav-link" href="/profit" target="_blank">Profit Estimator</a></li>
+        <li class="nav-item"><a class="nav-link" href="/fertilizers" target="_blank">Fertilizers & Pesticides</a></li>
+        <li class="nav-item"><a class="nav-link" href="/order?type=Farmer" target="_blank">User Needs</a></li>
+        <li class="nav-item"><a class="nav-link" href="/order-system/login" style="background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 5px;">Login/Signup</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <div class="hero-wrapper">
+    <h1 class="hero-title">EcoGrow</h1>
+    <p class="hero-sub">One Platform for Smart & Organic Farming</p>
+  </div>
+
+  <!-- Options Section -->
+  <div class="options-section">
+    <h2 class="options-title">Explore More Features</h2>
+    <div class="options-grid">
+      <div class="option-card">
+        <h3>Plant Disease Detection</h3>
+        <p>Detect plant diseases instantly using AI analysis.</p>
+    <a href="/plant-disease" class="btn btn-success" target="_blank">Open</a>
+      </div>
+      <div class="option-card">
+        <h3>Weather</h3>
+        <p>Get real-time weather updates for your farm.</p>
+        <a href="/static/weather/weather.html" class="btn btn-success" target="_blank">Open</a>
+      </div>
+      <div class="option-card">
+        <h3>Crop Guidance</h3>
+        <p>Find the best crops for your soil & season.</p>
+        <a href="/homeguide" target="_blank" class="btn btn-success">Open</a>
+      </div>
+      <div class="option-card">
+        <h3>Estimate Profit</h3>
+        <p>Calculate expected profits before farming.</p>
+        <a href="/profit" target="_blank" class="btn btn-success">Open</a>
+      </div>
+      <div class="option-card">
+        <h3>Fertilizers & Pesticides</h3>
+        <p>Get recommendations for organic solutions.</p>
+        <a href="/fertilizers" target="_blank" class="btn btn-success">Open</a>
+      </div>
+      <div class="option-card">
+        <h3>User Needs</h3>
+        <p>Share farming needs & connect with suppliers.</p>
+        <a href="/order?type=Farmer" target="_blank" class="btn btn-success">Open</a>
+      </div>
+      <div class="option-card">
+        <h3>Crop Products & Orders</h3>
+        <p>Browse products, place orders, and manage your farm business.</p>
+        <a href="/order-system" class="btn btn-ecogreen">Open</a>
+      </div>
+      <div class="option-card">
+        <h3>Login/Signup</h3>
+        <p>Create an account or login to access all features.</p>
+        <a href="/order-system/login" class="btn btn-ecogreen">Login / Signup</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="../static/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

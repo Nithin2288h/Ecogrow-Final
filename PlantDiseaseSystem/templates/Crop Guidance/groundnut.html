@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Groundnut Growing Guide - Madurai</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .collapse-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.6s ease;
+    }
+    .collapse-content.open {
+      max-height: 3000px;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-lime-50 to-yellow-100 text-gray-800 font-[Inter]">
+
+  <!-- Header -->
+  <header class="bg-gradient-to-r from-yellow-700 to-lime-500 text-white py-10 shadow-xl">
+    <h1 class="text-5xl text-center font-extrabold drop-shadow-md">🌱 Groundnut Growing Guide</h1>
+    <p class="text-center mt-3 text-xl font-medium opacity-90">Your Week-by-Week Organic Journey</p>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-6xl mx-auto px-6 py-12 space-y-10">
+    <section class="space-y-8">
+
+      <!-- Phase 1: Pre-Sowing -->
+      <div class="bg-white rounded-3xl shadow-2xl border-l-[6px] border-yellow-600 hover:shadow-yellow-200 transition-shadow duration-300">
+        <button onclick="toggleCollapse(this)" class="w-full text-left px-6 py-5 bg-yellow-100 hover:bg-yellow-200 font-semibold text-2xl text-yellow-800 tracking-wide">
+          Phase 1: Pre-Sowing (Weeks -4 to 0)
+        </button>
+        <div class="collapse-content px-6 py-4 space-y-4">
+          <details class="group">
+            <summary class="cursor-pointer font-semibold text-lg group-open:text-yellow-700 transition">Week -4 to -2: Field Planning</summary>
+            <p class="pl-5 text-gray-700 text-sm">Select well-drained sandy loam soil. Perform soil testing and adjust pH if needed (ideal: 6.0–7.5). Avoid waterlogging areas.</p>
+          </details>
+          <details class="group">
+            <summary class="cursor-pointer font-semibold text-lg group-open:text-yellow-700 transition">Week -2 to 0: Land Preparation</summary>
+            <p class="pl-5 text-gray-700 text-sm">Plough field 2–3 times. Add well-decomposed compost or FYM. Prepare fine tilth with proper ridges and furrows. Ensure good drainage.</p>
+          </details>
+        </div>
+      </div>
+
+      <!-- Phase 2: Sowing to Germination -->
+      <div class="bg-white rounded-3xl shadow-2xl border-l-[6px] border-yellow-600 hover:shadow-yellow-200 transition-shadow duration-300">
+        <button onclick="toggleCollapse(this)" class="w-full text-left px-6 py-5 bg-yellow-100 hover:bg-yellow-200 font-semibold text-2xl text-yellow-800 tracking-wide">
+          Phase 2: Sowing & Germination (Weeks 1–3)
+        </button>
+        <div class="collapse-content px-6 py-4 space-y-4">
+          <details class="group">
+            <summary class="cursor-pointer font-semibold text-lg group-open:text-yellow-700 transition">Week 1: Sowing</summary>
+            <p class="pl-5 text-gray-700 text-sm">Use bold, disease-free seeds. Inoculate seeds with Rhizobium culture. Sow at 30x10 cm spacing at 4–5 cm depth. Opt for varieties like TMV 7 or VRI 2 for Madurai.</p>
+          </details>
+          <details class="group">
+            <summary class="cursor-pointer font-semibold text-lg group-open:text-yellow-700 transition">Week 2–3: Germination & Weed Control</summary>
+            <p class="pl-5 text-gray-700 text-sm">Maintain soil moisture. First hand weeding at 15 days. Mulch lightly with straw or leaves if high sun exposure.</p>
+          </details>
+        </div>
+      </div>
+
+      <!-- Phase 3: Vegetative to Pegging Stage -->
+      <div class="bg-white rounded-3xl shadow-2xl border-l-[6px] border-yellow-600 hover:shadow-yellow-200 transition-shadow duration-300">
+        <button onclick="toggleCollapse(this)" class="w-full text-left px-6 py-5 bg-yellow-100 hover:bg-yellow-200 font-semibold text-2xl text-yellow-800 tracking-wide">
+          Phase 3: Vegetative & Pegging (Weeks 4–8)
+        </button>
+        <div class="collapse-content px-6 py-4 space-y-4">
+          <details class="group">
+            <summary class="cursor-pointer font-semibold text-lg group-open:text-yellow-700 transition">Week 4–5: Vigorous Growth</summary>
+            <p class="pl-5 text-gray-700 text-sm">Top dress with compost or vermicompost. Maintain light irrigation. Monitor for leaf spot or rust.</p>
+          </details>
+          <details class="group">
+            <summary class="cursor-pointer font-semibold text-lg group-open:text-yellow-700 transition">Week 6–8: Pegging Begins</summary>
+            <p class="pl-5 text-gray-700 text-sm">Pegging begins as stems bend toward soil. Avoid disturbing soil. Ensure gentle irrigation and good aeration.</p>
+          </details>
+        </div>
+      </div>
+
+      <!-- Phase 4: Pod Formation to Harvest -->
+      <div class="bg-white rounded-3xl shadow-2xl border-l-[6px] border-yellow-600 hover:shadow-yellow-200 transition-shadow duration-300">
+        <button onclick="toggleCollapse(this)" class="w-full text-left px-6 py-5 bg-yellow-100 hover:bg-yellow-200 font-semibold text-2xl text-yellow-800 tracking-wide">
+          Phase 4: Pod Development & Harvesting (Weeks 9–14)
+        </button>
+        <div class="collapse-content px-6 py-4 space-y-4">
+          <details class="group">
+            <summary class="cursor-pointer font-semibold text-lg group-open:text-yellow-700 transition">Week 9–12: Pod Maturity</summary>
+            <p class="pl-5 text-gray-700 text-sm">Stop nitrogen inputs. Water lightly. Pods grow underground — check 1-2 for maturity signs like firm shells and brown markings.</p>
+          </details>
+          <details class="group">
+            <summary class="cursor-pointer font-semibold text-lg group-open:text-yellow-700 transition">Week 13–14: Harvest</summary>
+            <p class="pl-5 text-gray-700 text-sm">Harvest when 75–80% pods are mature. Uproot gently. Dry under shade. Separate pods after drying for 4–5 days.</p>
+          </details>
+        </div>
+      </div>
+
+      <!-- Organic Tips -->
+      <div class="bg-white rounded-3xl shadow-2xl border-l-[6px] border-yellow-600 hover:shadow-yellow-200 transition-shadow duration-300">
+        <button onclick="toggleCollapse(this)" class="w-full text-left px-6 py-5 bg-yellow-100 hover:bg-yellow-200 font-semibold text-2xl text-yellow-800 tracking-wide">
+           Organic Growing Tips
+        </button>
+        <div class="collapse-content px-6 py-4 text-sm text-gray-700">
+          <ul class="list-disc list-inside space-y-1">
+            <li>Use Rhizobium and phosphorus-solubilizing bacteria for root health.</li>
+            <li>Apply neem cake and Trichoderma to prevent soilborne disease.</li>
+            <li>Rotate with legumes or cereals to avoid pest buildup.</li>
+            <li>For pest control: Use neem oil spray or cow urine extract every 10 days.</li>
+            <li>Encourage native pollinators with flower borders.</li>
+            <li>Mulch after pegging to conserve moisture and reduce weed growth.</li>
+          </ul>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+
+  <!-- Collapse JS -->
+  <script>
+    function toggleCollapse(button) {
+      const content = button.nextElementSibling;
+      content.classList.toggle("open");
+    }
+  </script>
+</body>
+</html>

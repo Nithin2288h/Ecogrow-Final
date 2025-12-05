@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tomato Growing Guide - Madurai</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .collapse-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.6s ease;
+    }
+    .collapse-content.open {
+      max-height: 3000px;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-lime-50 to-green-100 text-gray-800 font-[Inter]">
+
+  <!-- Header -->
+  <header class="bg-gradient-to-r from-green-600 to-lime-500 text-white py-10 shadow-xl">
+    <h1 class="text-5xl text-center font-extrabold drop-shadow-md">🌱 Tomato Growing Guide</h1>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-6xl mx-auto px-6 py-12 space-y-10">
+    <section class="space-y-8">
+
+      <!-- Phase Template Start -->
+      <div class="bg-white rounded-3xl shadow-2xl border-l-[6px] border-green-600 hover:shadow-green-200 transition-shadow duration-300">
+        <button onclick="toggleCollapse(this)" class="w-full text-left px-6 py-5 bg-green-100 hover:bg-green-200 font-semibold text-2xl text-green-800 tracking-wide">
+          Phase 1: Preparation (Weeks -4 to -1)
+        </button>
+        <div class="collapse-content px-6 py-4 space-y-4">
+          <details class="group">
+            <summary class="cursor-pointer font-semibold text-lg group-open:text-green-700 transition">Week -4 to -3: Planning and Seed Starting</summary>
+            <p class="pl-5 text-gray-700 text-sm">Choose climate-suited varieties like Arka Vikas or Pusa Ruby. Start seeds in trays indoors with organic potting mix. Keep warm and moist. Consider soil testing.</p>
+          </details>
+          <details class="group">
+            <summary class="cursor-pointer font-semibold text-lg group-open:text-green-700 transition">Week -2: Soil Preparation</summary>
+            <p class="pl-5 text-gray-700 text-sm">Pick a sunny, well-drained spot. Clear weeds and rocks. Enrich soil with compost or vermicompost. Raised beds optional but helpful.</p>
+          </details>
+          <details class="group">
+            <summary class="cursor-pointer font-semibold text-lg group-open:text-green-700 transition">Week -1: Final Preparation</summary>
+            <p class="pl-5 text-gray-700 text-sm">Level the soil and mark plant spacing. Harden off indoor seedlings gradually for outdoor adaptation.</p>
+          </details>
+        </div>
+      </div>
+
+      <!-- Phase 2 -->
+      <div class="bg-white rounded-3xl shadow-2xl border-l-[6px] border-green-600 hover:shadow-green-200 transition-shadow duration-300">
+        <button onclick="toggleCollapse(this)" class="w-full text-left px-6 py-5 bg-green-100 hover:bg-green-200 font-semibold text-2xl text-green-800 tracking-wide">
+          Phase 2: Planting and Early Growth (Weeks 1-4)
+        </button>
+        <div class="collapse-content px-6 py-4 space-y-4">
+          <details class="group">
+            <summary class="cursor-pointer font-semibold text-lg group-open:text-green-700 transition">Week 1: Transplanting</summary>
+            <p class="pl-5 text-gray-700 text-sm">Transplant seedlings gently. Water deeply. Mulch with organic matter like straw or dried leaves.</p>
+          </details>
+          <details class="group">
+            <summary class="cursor-pointer font-semibold text-lg group-open:text-green-700 transition">Week 2: Establishment</summary>
+            <p class="pl-5 text-gray-700 text-sm">Regular deep watering, avoid wet foliage. Hand-weed and check for pests.</p>
+          </details>
+          <details class="group">
+            <summary class="cursor-pointer font-semibold text-lg group-open:text-green-700 transition">Week 3: Supporting Vines</summary>
+            <p class="pl-5 text-gray-700 text-sm">Stake indeterminate varieties. Continue weeding and watering. Optional foliar feed.</p>
+          </details>
+          <details class="group">
+            <summary class="cursor-pointer font-semibold text-lg group-open:text-green-700 transition">Week 4: Pruning and Monitoring</summary>
+            <p class="pl-5 text-gray-700 text-sm">Prune suckers (indeterminate). Avoid pruning determinate types. Monitor closely for pests.</p>
+          </details>
+        </div>
+      </div>
+
+      <!-- Phase 3 -->
+      <div class="bg-white rounded-3xl shadow-2xl border-l-[6px] border-green-600 hover:shadow-green-200 transition-shadow duration-300">
+        <button onclick="toggleCollapse(this)" class="w-full text-left px-6 py-5 bg-green-100 hover:bg-green-200 font-semibold text-2xl text-green-800 tracking-wide">
+          Phase 3: Flowering & Fruit Development (Weeks 5–12)
+        </button>
+        <div class="collapse-content px-6 py-4 space-y-4">
+          <details class="group">
+            <summary class="cursor-pointer font-semibold text-lg group-open:text-green-700 transition">Week 5-6: Flowering</summary>
+            <p class="pl-5 text-gray-700 text-sm">Water & nutrients crucial. Hand-pollinate if needed. Monitor and spray organic treatments.</p>
+          </details>
+          <details class="group">
+            <summary class="cursor-pointer font-semibold text-lg group-open:text-green-700 transition">Week 7-9: Fruit Set</summary>
+            <p class="pl-5 text-gray-700 text-sm">Ensure consistent watering to avoid blossom-end rot. Prune suckers. Netting optional for fruit protection.</p>
+          </details>
+          <details class="group">
+            <summary class="cursor-pointer font-semibold text-lg group-open:text-green-700 transition">Week 10-12: Ripening</summary>
+            <p class="pl-5 text-gray-700 text-sm">Reduce nitrogen, increase potassium. Observe ripening stages. Ensure sunlight exposure.</p>
+          </details>
+        </div>
+      </div>
+
+      <!-- Phase 4 -->
+      <div class="bg-white rounded-3xl shadow-2xl border-l-[6px] border-green-600 hover:shadow-green-200 transition-shadow duration-300">
+        <button onclick="toggleCollapse(this)" class="w-full text-left px-6 py-5 bg-green-100 hover:bg-green-200 font-semibold text-2xl text-green-800 tracking-wide">
+          Phase 4: Harvesting (Week 12+)
+        </button>
+        <div class="collapse-content px-6 py-4 text-sm text-gray-700">
+          <p>Harvest when fruits are fully colored and slightly soft. Pick gently to avoid bruising. Regular harvesting encourages new fruits. Compost old plants if disease-free.</p>
+        </div>
+      </div>
+
+      <!-- Organic Tips -->
+      <div class="bg-white rounded-3xl shadow-2xl border-l-[6px] border-green-600 hover:shadow-green-200 transition-shadow duration-300">
+        <button onclick="toggleCollapse(this)" class="w-full text-left px-6 py-5 bg-green-100 hover:bg-green-200 font-semibold text-2xl text-green-800 tracking-wide">
+          🌿 Organic Growing Tips
+        </button>
+        <div class="collapse-content px-6 py-4 text-sm text-gray-700">
+          <ul class="list-disc list-inside space-y-1">
+            <li>Use heat-tolerant varieties suitable for Madurai.</li>
+            <li>Drip irrigation conserves water and improves consistency.</li>
+            <li>Rotate crops and companion plant with basil or marigold.</li>
+            <li>Use neem oil, insecticidal soap, and handpicking.</li>
+            <li>Ensure airflow, avoid overhead watering, and use organic fungicides wisely.</li>
+            <li>Feed soil regularly with compost for long-term health.</li>
+          </ul>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+
+  <!-- Collapse JS -->
+  <script>
+    function toggleCollapse(button) {
+      const content = button.nextElementSibling;
+      content.classList.toggle("open");
+    }
+  </script>
+</body>
+</html>

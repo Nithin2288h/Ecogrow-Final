@@ -1,0 +1,151 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #f4f8f7;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background: #1a7431;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.app-container3 {
+  padding: 30px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* Form section */
+.form-container {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  margin-bottom: 30px;
+}
+
+.form-container h2 {
+  color: #1a7431;
+  margin-bottom: 15px;
+}
+
+.form-container input, .form-container select, .form-container textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.form-container button {
+  background-color: #1a7431;
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.form-container button:hover {
+  background-color: #145a27;
+}
+
+/* Tabs */
+.tabs-container3 {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.tab3 {
+  background-color: #e6f0ea;
+  color: #1a7431;
+  border: none;
+  padding: 12px 30px;
+  margin: 0 10px;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tab3:hover {
+  background-color: #cde9d9;
+}
+
+.active3 {
+  background-color: #1a7431;
+  color: white;
+}
+
+/* Profile grid */
+.profile-grid3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 25px;
+  justify-items: center;
+}
+
+/* Profile card */
+.profile-card3 {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  width: 320px;
+  padding: 25px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.profile-card3:hover {
+  transform: translateY(-5px);
+}
+
+.profile-image3 img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 15px;
+}
+
+.profile-details3 p {
+  margin: 8px 0;
+  font-size: 15px;
+  color: #333;
+}
+
+.profile-details3 strong {
+  color: #1a7431;
+}
+
+.whatsapp-button3 {
+  background-color: #25d366;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 20px;
+  margin-top: 15px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.whatsapp-button3:hover {
+  background-color: #1ebe57;
+}
+
+.success {
+  color: green;
+  font-weight: 600;
+  text-align: center;
+  margin-top: 10px;
+}

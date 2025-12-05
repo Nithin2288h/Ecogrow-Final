@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weather Forecast | EcoGrow</title>
+  <link rel="stylesheet" href="../css/weather.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+</head>
+<body>
+  <header class="weather-header">
+    <div class="header-title">Weather Forecasting</div>
+    <div class="header-search-bar">
+      <input type="text" placeholder="Search location...">
+      <button>Search</button>
+    </div>
+  </header>
+  <div class="weather-container">
+    <div class="overlay">
+      <div class="weather-content">
+        <div class="main-weather">
+          <div class="location">Madurai, IN</div>
+          <div class="temperature">24°C</div>
+          <div class="condition">Clear</div>
+          <div class="date">
+            <span>November 1, 2025</span>
+          </div>
+        </div>
+
+        <div class="weather-details">
+          <div class="card">
+            <i class="fas fa-tachometer-alt"></i>
+            <p>Atmospheric Pressure</p>
+            <span>1027 hPa</span>
+          </div>
+          <div class="card">
+            <i class="fas fa-tint"></i>
+            <p>Humidity</p>
+            <span>65%</span>
+          </div>
+          <div class="card">
+            <i class="fas fa-wind"></i>
+            <p>Wind Speed</p>
+            <span>1.34 km/h</span>
+          </div>
+          <div class="card">
+            <i class="fas fa-thermometer-half"></i>
+            <p>Feels Like</p>
+            <span>25°C</span>
+          </div>
+        </div>
+
+        <div class="forecast">
+          <h2>5-Day Forecast</h2>
+          <div class="forecast-grid">
+            <!-- Forecast days will be added here by JavaScript -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="weather.js"></script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+body {
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .hero-bg {
+    background-image: url('https://images.unsplash.com/photo-1576402187875-b21d1216a59b?auto=format&fit=crop&w=1500&q=80');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+  }
+  
+  .glass {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .fade-in {
+    animation: fadeIn 1s ease-in-out forwards;
+    opacity: 0;
+  }
+  
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+    }
+  }
+  .btn{
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 3px 1px;
+    cursor: pointer;
+    border-radius: 12px;
+  }

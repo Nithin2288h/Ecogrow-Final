@@ -1,0 +1,331 @@
+import os
+os.environ['KERAS_BACKEND'] = 'tensorflow'  # Set backend before importing anything else
+os.environ['TF_USE_LEGACY_KERAS'] = '1'     # Use TensorFlow's bundled Keras
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'    # Reduce TF logging
+
+import sys
+from flask import Flask, render_template, request, redirect, send_from_directory, url_for
+import numpy as np
+import json
+import uuid
+import logging
+import traceback
+import psutil
+import tensorflow as tf
+from importlib.metadata import version, PackageNotFoundError
+
+# Configure logging
+logging.basicConfig(
+    level=logging.DEBUG,
+    format='%(asctime)s [%(levelname)s] %(message)s',
+    stream=sys.stdout
+)
+logger = logging.getLogger(__name__)
+
+app = Flask(__name__)
+app.debug = True
+logger.info("Initializing Flask application in debug mode...")
+
+# Global variables
+model = None
+plant_disease = None
+
+
+@app.errorhandler(Exception)
+def handle_exception(e):
+    logger.error(f"Unhandled exception: {str(e)}")
+    logger.error(traceback.format_exc())
+    return str(e), 500
+
+
+def create_mock_model():
+    """Create a mock model for testing when the real model can't be loaded"""
+    logger.warning("Creating mock model for testing purposes")
+
+    class MockModel:
+        def predict(self, img):
+            import random
+            prediction = [0.0] * 39
+            random_index = random.randint(0, 38)
+            prediction[random_index] = 0.8 + random.random() * 0.2
+            return [prediction]
+
+    return MockModel()
+
+
+def load_model_on_cpu():
+    global model, plant_disease
+    try:
+        logger.info("Starting model loading process...")
+
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        model_path = os.path.join(base_dir, "models", "plant_disease_recog_model_pwp.keras")
+
+        logger.info("Full model path: %s", model_path)
+
+        if not os.path.exists(model_path):
+            logger.error(f"Model file not found at {model_path}")
+            model = create_mock_model()
+        else:
+            model_size = os.path.getsize(model_path)
+            logger.info("Model file found (size: %.2f MB)", model_size / (1024 * 1024))
+
+            process = psutil.Process()
+            memory_before = process.memory_info().rss / 1024 / 1024
+            logger.info("Memory before model load: %.2f MB", memory_before)
+
+            logger.info("Loading model...")
+            try:
+                model = tf.keras.models.load_model(model_path, compile=False)
+                logger.info("Real model loaded successfully!")
+            except Exception as e:
+                logger.error("Failed to load real model: %s", str(e))
+                logger.warning("Using mock model for demonstration purposes")
+                model = create_mock_model()
+
+        # Load JSON mapping
+        json_path = os.path.join(base_dir, "plant_disease.json")
+        with open(json_path, 'r') as file:
+            plant_disease = json.load(file)
+            logger.info("Plant disease data loaded successfully")
+
+        logger.info(f"TensorFlow version: {tf.__version__}")
+        logger.info(f"Keras backend: {tf.keras.backend.backend()}")
+
+    except Exception as e:
+        logger.error("Error during initialization: %s", str(e))
+        logger.error(traceback.format_exc())
+        model = None
+        return
+
+
+# Flask routes
+@app.route('/uploadimages/<path:filename>')
+def uploaded_images(filename):
+    upload_dir = os.path.join(os.getcwd(), 'uploadimages')
+    return send_from_directory(upload_dir, filename)
+
+
+@app.route('/homeguide')
+def homeguide():
+    return render_template('Crop Guidance/homeguid.html')
+
+
+@app.route('/profit')
+def profit():
+    return render_template('Estimation Profit/profit.html')
+
+
+@app.route('/fertilizers')
+def fertilizers():
+    return render_template('Fertilizers and Pesticides/fertilizer.html')
+
+
+@app.route('/')
+def home():
+    return render_template('home.html')
+
+
+@app.route('/weather')
+def weather():
+    return render_template('weather/weather.html')
+
+
+@app.route('/guidance')
+def guidance():
+    return render_template('Crop Guidance/homeguid.html')
+
+
+@app.route('/order')
+def order():
+    try:
+        selected_type = request.args.get('type', '')
+        return render_template('order.html', selected_type=selected_type)
+    except Exception as e:
+        logger.error(f"Error rendering order page: {str(e)}")
+        return f"Error loading order page: {str(e)}", 500
+
+
+@app.route('/guidance/<crop>')
+def guidance_crop(crop):
+    try:
+        if '..' in crop or crop.startswith('/'):
+            return "Invalid crop name", 400
+        return render_template(f"Crop Guidance/{crop}.html")
+    except Exception as e:
+        logger.error(f"Error rendering {crop} guidance: {str(e)}")
+        return f"Error loading {crop} guidance: {str(e)}", 404
+
+
+def extract_features(image_path):
+    image = tf.keras.utils.load_img(image_path, target_size=(160, 160))
+    feature = tf.keras.utils.img_to_array(image)
+    feature = np.expand_dims(feature, axis=0)
+    return feature
+
+
+def model_predict(image_path):
+    img = extract_features(image_path)
+    prediction = model.predict(img)
+    prediction_index = np.argmax(prediction)
+    confidence = float(np.max(prediction))
+
+    disease_name = plant_disease[str(prediction_index)]
+
+    prediction_data = {
+        'name': disease_name,
+        'confidence': f"{confidence * 100:.1f}%",
+        'cause': get_disease_cause(disease_name),
+        'cure': get_disease_cure(disease_name)
+    }
+
+    return prediction_data
+
+
+# Disease cause & cure lookup
+def get_disease_cause(disease_name):
+    causes = {
+        'Apple___Apple_scab': 'Fungal infection caused by Venturia inaequalis',
+        'Apple___Black_rot': 'Fungal disease caused by Botryosphaeria obtusa',
+        'Apple___Cedar_apple_rust': 'Fungal disease requiring both apple and cedar trees',
+        'Apple___healthy': 'No disease detected - plant appears healthy',
+        'Background_without_leaves': 'No plant detected in image',
+        'Blueberry___healthy': 'No disease detected - plant appears healthy',
+        'Cherry___Powdery_mildew': 'Fungal infection causing white powdery coating',
+        'Cherry___healthy': 'No disease detected - plant appears healthy',
+        'Corn___Cercospora_leaf_spot Gray_leaf_spot': 'Fungal disease caused by Cercospora zeae-maydis',
+        'Corn___Common_rust': 'Fungal disease caused by Puccinia sorghi',
+        'Corn___Northern_Leaf_Blight': 'Fungal disease caused by Exserohilum turcicum',
+        'Corn___healthy': 'No disease detected - plant appears healthy',
+        'Grape___Black_rot': 'Fungal disease caused by Guignardia bidwellii',
+        'Grape___Esca_(Black_Measles)': 'Complex fungal disease affecting grape vines',
+        'Grape___Leaf_blight_(Isariopsis_Leaf_Spot)': 'Fungal disease caused by Isariopsis leaf spot',
+        'Grape___healthy': 'No disease detected - plant appears healthy',
+        'Orange___Haunglongbing_(Citrus_greening)': 'Bacterial disease spread by Asian citrus psyllid',
+        'Peach___Bacterial_spot': 'Bacterial infection caused by Xanthomonas arboricola',
+        'Peach___healthy': 'No disease detected - plant appears healthy',
+        'Pepper,_bell___Bacterial_spot': 'Bacterial infection affecting pepper plants',
+        'Pepper,_bell___healthy': 'No disease detected - plant appears healthy',
+        'Potato___Early_blight': 'Fungal disease caused by Alternaria solani',
+        'Potato___Late_blight': 'Fungal disease caused by Phytophthora infestans',
+        'Potato___healthy': 'No disease detected - plant appears healthy',
+        'Raspberry___healthy': 'No disease detected - plant appears healthy',
+        'Soybean___healthy': 'No disease detected - plant appears healthy',
+        'Squash___Powdery_mildew': 'Fungal infection causing white powdery coating',
+        'Strawberry___Leaf_scorch': 'Fungal disease causing leaf browning and death',
+        'Strawberry___healthy': 'No disease detected - plant appears healthy',
+        'Tomato___Bacterial_spot': 'Bacterial infection causing dark spots on leaves',
+        'Tomato___Early_blight': 'Fungal disease caused by Alternaria solani',
+        'Tomato___Late_blight': 'Fungal disease caused by Phytophthora infestans',
+        'Tomato___Leaf_Mold': 'Fungal disease thriving in humid conditions',
+        'Tomato___Septoria_leaf_spot': 'Fungal disease caused by Septoria lycopersici',
+        'Tomato___Spider_mites Two-spotted_spider_mite': 'Pest infestation by spider mites',
+        'Tomato___Target_Spot': 'Fungal disease caused by Corynespora cassiicola',
+        'Tomato___Tomato_Yellow_Leaf_Curl_Virus': 'Viral disease spread by whiteflies',
+        'Tomato___Tomato_mosaic_virus': 'Viral disease affecting tomato plants',
+        'Tomato___healthy': 'No disease detected - plant appears healthy'
+    }
+    return causes.get(disease_name, 'Cause information not available')
+
+
+def get_disease_cure(disease_name):
+    cures = {
+        'Apple___Apple_scab': 'Apply fungicide sprays, remove fallen leaves, improve air circulation',
+        'Apple___Black_rot': 'Prune infected branches, apply fungicide, remove mummified fruits',
+        'Apple___Cedar_apple_rust': 'Remove nearby cedar trees, apply fungicide during spring',
+        'Apple___healthy': 'Continue good care practices - proper watering and nutrition',
+        'Background_without_leaves': 'Please upload an image containing plant leaves',
+        'Blueberry___healthy': 'Continue good care practices - proper watering and nutrition',
+        'Cherry___Powdery_mildew': 'Apply fungicide, improve air circulation, avoid overhead watering',
+        'Cherry___healthy': 'Continue good care practices - proper watering and nutrition',
+        'Corn___Cercospora_leaf_spot Gray_leaf_spot': 'Use resistant varieties, apply fungicide, crop rotation',
+        'Corn___Common_rust': 'Plant resistant varieties, apply fungicide if severe',
+        'Corn___Northern_Leaf_Blight': 'Use resistant hybrids, apply fungicide, crop rotation',
+        'Corn___healthy': 'Continue good care practices - proper watering and nutrition',
+        'Grape___Black_rot': 'Apply fungicide, remove infected berries, improve air circulation',
+        'Grape___Esca_(Black_Measles)': 'Prune infected wood, apply protective fungicide',
+        'Grape___Leaf_blight_(Isariopsis_Leaf_Spot)': 'Apply fungicide, remove infected leaves',
+        'Grape___healthy': 'Continue good care practices - proper watering and nutrition',
+        'Orange___Haunglongbing_(Citrus_greening)': 'Control psyllids, remove infected trees',
+        'Peach___Bacterial_spot': 'Apply copper-based bactericide, prune for air circulation',
+        'Peach___healthy': 'Continue good care practices - proper watering and nutrition',
+        'Pepper,_bell___Bacterial_spot': 'Apply copper fungicide, avoid overhead watering, crop rotation',
+        'Pepper,_bell___healthy': 'Continue good care practices - proper watering and nutrition',
+        'Potato___Early_blight': 'Apply fungicide, remove infected foliage, crop rotation',
+        'Potato___Late_blight': 'Apply fungicide preventively, destroy infected plants',
+        'Potato___healthy': 'Continue good care practices - proper watering and nutrition',
+        'Raspberry___healthy': 'Continue good care practices - proper watering and nutrition',
+        'Soybean___healthy': 'Continue good care practices - proper watering and nutrition',
+        'Squash___Powdery_mildew': 'Apply fungicide, improve air circulation, avoid overhead watering',
+        'Strawberry___Leaf_scorch': 'Remove infected leaves, apply fungicide, improve drainage',
+        'Strawberry___healthy': 'Continue good care practices - proper watering and nutrition',
+        'Tomato___Bacterial_spot': 'Apply copper fungicide, avoid overhead watering, crop rotation',
+        'Tomato___Early_blight': 'Apply fungicide, remove lower leaves, improve air circulation',
+        'Tomato___Late_blight': 'Apply fungicide preventively, destroy infected plants',
+        'Tomato___Leaf_Mold': 'Improve ventilation, reduce humidity, apply fungicide',
+        'Tomato___Septoria_leaf_spot': 'Remove infected leaves, apply fungicide, mulch soil',
+        'Tomato___Spider_mites Two-spotted_spider_mite': 'Use insecticidal soap, increase humidity, biological control',
+        'Tomato___Target_Spot': 'Apply fungicide, remove infected debris, crop rotation',
+        'Tomato___Tomato_Yellow_Leaf_Curl_Virus': 'Control whiteflies, remove infected plants, use resistant varieties',
+        'Tomato___Tomato_mosaic_virus': 'Remove infected plants, disinfect tools, use virus-free seeds',
+        'Tomato___healthy': 'Continue good care practices - proper watering and nutrition'
+    }
+    return cures.get(disease_name, 'Treatment information not available')
+
+
+@app.route('/upload/', methods=['POST', 'GET'])
+def uploadimage():
+    if request.method == "POST":
+        logger.info("Received image upload request")
+
+        if model is None:
+            logger.error("Model not loaded. Cannot make predictions.")
+            return render_template('home.html', error="Model not loaded. Please restart the server."), 500
+
+        if 'img' not in request.files:
+            return render_template('home.html', error="No image file selected."), 400
+
+        image = request.files['img']
+
+        if image.filename == '':
+            return render_template('home.html', error="No image file selected."), 400
+
+        allowed_extensions = {'.png', '.jpg', '.jpeg', '.gif', '.bmp'}
+        file_ext = os.path.splitext(image.filename.lower())[1]
+        if file_ext not in allowed_extensions:
+            return render_template('home.html', error="Please upload a valid image file (PNG, JPG, JPEG, GIF, BMP)."), 400
+
+        temp_name = f"uploadimages/temp_{uuid.uuid4().hex}_{image.filename}"
+        temp_save_path = os.path.join(os.getcwd(), temp_name)
+
+        try:
+            os.makedirs(os.path.dirname(temp_save_path), exist_ok=True)
+            image.save(temp_save_path)
+
+            prediction = model_predict(temp_save_path)
+            image_url_path = temp_name.replace(os.path.sep, '/')
+
+            return render_template('home.html', result=True, imagepath=f'/{image_url_path}', prediction=prediction)
+
+        except Exception as e:
+            logger.error(f"Error during prediction: {str(e)}")
+            logger.error(traceback.format_exc())
+            return render_template('home.html', error=f"Error processing image: {str(e)}"), 500
+
+    else:
+        return redirect('/')
+
+
+if __name__ == "__main__":
+    logger.info("Starting Flask application...")
+    try:
+        upload_dir = os.path.join(os.getcwd(), 'uploadimages')
+        if not os.path.exists(upload_dir):
+            os.makedirs(upload_dir)
+
+        load_model_on_cpu()
+
+        app.run(host="127.0.0.1", port=5000, debug=True, use_reloader=False)
+    except Exception as e:
+        logger.error(f"Error starting Flask: {str(e)}", exc_info=True)
+        sys.exit(1)

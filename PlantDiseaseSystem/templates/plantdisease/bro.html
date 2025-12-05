@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Plant Disease Detector - Demo AI</title>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: url('https://www.pixelstalk.net/wp-content/uploads/images6/The-best-Farm-Wallpaper-HD.jpg') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+
+      /* Add light overlay for readability */
+      position: relative;
+    }
+
+    /* Transparent overlay to make card readable */
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.4); /* light white sheet */
+      backdrop-filter: blur(2px);
+      z-index: 0;
+    }
+
+    .feature-card {
+      position: relative;
+      z-index: 1;
+      background: #f5f5dc;
+      width: 420px;
+      padding: 28px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    h2 { color: #2e7d32; margin-bottom: 16px; }
+
+    input[type="file"], textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    #preview {
+      margin-top: 12px;
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      display: none;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    }
+
+    button {
+      background: #2e7d32;
+      color: white;
+      border: none;
+      padding: 12px 22px;
+      border-radius: 8px;
+      font-size: 15px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.2s;
+    }
+
+    button:hover { background: #1b5e20; }
+
+    #result {
+      margin-top: 18px;
+      background: #e8f5e9;
+      padding: 14px;
+      border-left: 5px solid #2e7d32;
+      border-radius: 8px;
+      text-align: left;
+      font-size: 15px;
+      display: none;
+    }
+
+    .loader {
+      width: 36px;
+      height: 36px;
+      border: 5px solid #c8e6c9;
+      border-top: 5px solid #2e7d32;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 16px auto;
+      display: none;
+    }
+
+    #statusText {
+      margin-top: 8px;
+      font-size: 14px;
+      color: #2e7d32;
+      display: none;
+      font-weight: bold;
+    }
+
+    #result strong {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    #result div {
+      margin-bottom: 10px;
+    }
+
+    .error {
+      color: #f44336;
+      background: #ffebee;
+      border-left-color: #f44336;
+    }
+
+    .success {
+      color: #2e7d32;
+      background: #e8f5e9;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="feature-card">
+    <h2>Plant Disease Detector</h2>
+
+    <label><strong>Upload Plant Image:</strong></label>
+    <input type="file" id="imageInput" accept="image/*" />
+    <img id="preview" src="" alt="Preview" />
+
+    <label><strong>Describe the symptoms (optional):</strong></label>
+    <textarea id="symptoms" placeholder="Yellow spots, white powder, wilting leaves"></textarea>
+
+    <button onclick="getDiagnosis()" id="analyzeBtn">Analyze Plant Disease</button>
+
+    <div class="loader" id="loader"></div>
+    <div id="statusText">Analyzing image, please wait...</div>
+
+    <div id="result"></div>
+  </div>
+
+  <script>
+    const diseases = [
+      "Tomato Early Blight",
+      "Tomato Late Blight",
+      "Tomato Leaf Mold",
+      "Tomato Septoria Leaf Spot",
+      "Tomato Spider Mites",
+      "Tomato Mosaic Virus",
+      "Potato Early Blight",
+      "Potato Late Blight",
+      "Apple Scab",
+      "Apple Black Rot",
+      "Corn Gray Leaf Spot",
+      "Corn Rust",
+      "Grape Black Rot"
+    ];
+
+    document.getElementById("imageInput").addEventListener("change", () => {
+      const file = imageInput.files[0];
+      const preview = document.getElementById("preview");
+
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = e => {
+          preview.src = e.target.result;
+          preview.style.display = "block";
+        };
+        reader.readAsDataURL(file);
+      }
+      document.getElementById("result").style.display = "none";
+    });
+
+    async function getDiagnosis() {
+      const imageInput = document.getElementById("imageInput");
+      const resultDiv = document.getElementById("result");
+      const loader = document.getElementById("loader");
+      const statusText = document.getElementById("statusText");
+      const symptoms = document.getElementById("symptoms").value;
+
+      if (!imageInput.files || imageInput.files.length === 0) {
+        alert("Please upload a plant image first.");
+        return;
+      }
+
+      resultDiv.style.display = "none";
+      loader.style.display = "block";
+      statusText.style.display = "block";
+      statusText.textContent = "Analyzing image with AI model...";
+
+      try {
+        // Create FormData to send image
+        const formData = new FormData();
+        formData.append('image', imageInput.files[0]);
+
+        // Send prediction request
+        const response = await fetch('/predict-disease', {
+          method: 'POST',
+          body: formData
+        });
+
+        const data = await response.json();
+
+        loader.style.display = "none";
+        statusText.style.display = "none";
+
+        if (data.success) {
+          resultDiv.style.display = "block";
+          
+          const confidenceColor = data.is_healthy ? "#4CAF50" : "#ff9800";
+          const statusEmoji = data.is_healthy ? "✅" : "⚠️";
+          
+          resultDiv.innerHTML = `
+            <div style="margin-bottom: 12px;">
+              <strong style="color: ${confidenceColor}; font-size: 18px;">
+                ${statusEmoji} ${data.disease}
+              </strong>
+              <br>
+              <span style="color: #666; font-size: 14px;">
+                Confidence: ${data.confidence}%
+              </span>
+            </div>
+            
+            <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid #ddd;">
+              <strong style="color: #2e7d32;">Cause:</strong><br>
+              <span style="color: #555;">${data.cause}</span>
+            </div>
+            
+            <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid #ddd;">
+              <strong style="color: #2e7d32;">Organic Solution:</strong><br>
+              <span style="color: #555; white-space: pre-line;">${data.cure}</span>
+            </div>
+          `;
+        } else {
+          resultDiv.style.display = "block";
+          resultDiv.innerHTML = `
+            <strong style="color: #f44336;">Error:</strong><br>
+            ${data.error || "Failed to analyze image. Please try again."}
+          `;
+        }
+      } catch (error) {
+        loader.style.display = "none";
+        statusText.style.display = "none";
+        resultDiv.style.display = "block";
+        resultDiv.innerHTML = `
+          <strong style="color: #f44336;">Error:</strong><br>
+          ${error.message || "Failed to connect to server. Please try again."}
+        `;
+        console.error("Prediction error:", error);
+      }
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,124 @@
+.navigation {
+  background: #4CAF50;
+  padding: 1rem 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+}
+
+.nav-logo {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: white;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.45rem 0.9rem;
+  border-radius: 6px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.nav-user {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.user-name {
+  color: white;
+  font-weight: 600;
+}
+.switch-user-btn {
+  background: var(--eco-white);
+  color: #2f6b3f;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 0.45rem 0.9rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.15s, transform 0.12s;
+}
+
+.switch-user-btn:hover {
+  background: rgba(255,255,255,0.95);
+  transform: translateY(-1px);
+}
+
+.logout-btn {
+  background: var(--eco-white);
+  color: #2f6b3f;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 0.45rem 0.9rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.15s, transform 0.12s;
+  margin-left: 0.25rem;
+}
+
+.logout-btn:hover {
+  background: rgba(255,255,255,0.95);
+  transform: translateY(-1px);
+}
+
+.login-link {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: background 0.3s;
+}
+
+.login-link:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+@media (max-width: 768px) {
+  .nav-container {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .nav-links {
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+  }
+  
+  .nav-user {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .switch-user-btn {
+    width: 100%;
+  }
+}
+

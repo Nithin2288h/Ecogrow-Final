@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Corn Growing Guide - Madurai</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .collapse-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.6s ease;
+    }
+    .collapse-content.open {
+      max-height: 3000px;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-yellow-50 to-green-100 text-gray-800 font-[Inter]">
+
+  <!-- Header -->
+  <header class="bg-gradient-to-r from-yellow-600 to-green-500 text-white py-10 shadow-xl">
+    <h1 class="text-5xl text-center font-extrabold drop-shadow-md">🌽 Corn Growing Guide</h1>
+    <p class="text-center mt-3 text-xl font-medium opacity-90">A Step-by-Step Organic Cultivation Guide</p>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-6xl mx-auto px-6 py-12 space-y-10">
+    <section class="space-y-8">
+
+      <!-- Phase 1: Land Preparation -->
+      <div class="bg-white rounded-3xl shadow-2xl border-l-[6px] border-yellow-600 hover:shadow-yellow-200 transition-shadow duration-300">
+        <button onclick="toggleCollapse(this)" class="w-full text-left px-6 py-5 bg-yellow-100 hover:bg-yellow-200 font-semibold text-2xl text-yellow-800 tracking-wide">
+          Phase 1: Land Preparation (Weeks -3 to 0)
+        </button>
+        <div class="collapse-content px-6 py-4 space-y-4">
+          <details class="group">
+            <summary class="cursor-pointer font-semibold text-lg group-open:text-yellow-700 transition">Week -3 to -2: Soil Analysis</summary>
+            <p class="pl-5 text-gray-700 text-sm">Test soil pH (ideal 5.8–7.0). Add lime if pH is too low. Corn prefers loamy, well-drained soil. Avoid compacted or waterlogged fields.</p>
+          </details>
+          <details class="group">
+            <summary class="cursor-pointer font-semibold text-lg group-open:text-yellow-700 transition">Week -1: Field Prep</summary>
+            <p class="pl-5 text-gray-700 text-sm">Plough deeply and apply 5–8 tons of well-rotted compost or FYM per acre. Create flat beds or ridges for easy irrigation. Level field for uniform seed depth.</p>
+          </details>
+        </div>
+      </div>
+
+      <!-- Phase 2: Sowing & Germination -->
+      <div class="bg-white rounded-3xl shadow-2xl border-l-[6px] border-yellow-600 hover:shadow-yellow-200 transition-shadow duration-300">
+        <button onclick="toggleCollapse(this)" class="w-full text-left px-6 py-5 bg-yellow-100 hover:bg-yellow-200 font-semibold text-2xl text-yellow-800 tracking-wide">
+          Phase 2: Sowing & Germination (Weeks 1–2)
+        </button>
+        <div class="collapse-content px-6 py-4 space-y-4">
+          <details class="group">
+            <summary class="cursor-pointer font-semibold text-lg group-open:text-yellow-700 transition">Week 1: Seed Selection & Sowing</summary>
+            <p class="pl-5 text-gray-700 text-sm">Choose region-suited hybrid/double-cross varieties like COH(M) 5 or COH(M) 6. Treat seeds with Trichoderma and Azospirillum. Sow with 60x20 cm spacing at 3-5 cm depth.</p>
+          </details>
+          <details class="group">
+            <summary class="cursor-pointer font-semibold text-lg group-open:text-yellow-700 transition">Week 2: Germination Monitoring</summary>
+            <p class="pl-5 text-gray-700 text-sm">Ensure good moisture and soil contact. Light irrigation helps sprouting. Watch for fungal damping-off; treat with neem extract if needed.</p>
+          </details>
+        </div>
+      </div>
+
+      <!-- Phase 3: Early Growth -->
+      <div class="bg-white rounded-3xl shadow-2xl border-l-[6px] border-yellow-600 hover:shadow-yellow-200 transition-shadow duration-300">
+        <button onclick="toggleCollapse(this)" class="w-full text-left px-6 py-5 bg-yellow-100 hover:bg-yellow-200 font-semibold text-2xl text-yellow-800 tracking-wide">
+          Phase 3: Vegetative Stage (Weeks 3–6)
+        </button>
+        <div class="collapse-content px-6 py-4 space-y-4">
+          <details class="group">
+            <summary class="cursor-pointer font-semibold text-lg group-open:text-yellow-700 transition">Week 3–4: Establishment</summary>
+            <p class="pl-5 text-gray-700 text-sm">Apply Panchagavya or jeevamrutham. Irrigate every 5–7 days. Begin weeding. Top-dress with compost tea if leaves appear yellowish.</p>
+          </details>
+          <details class="group">
+            <summary class="cursor-pointer font-semibold text-lg group-open:text-yellow-700 transition">Week 5–6: Rapid Growth</summary>
+            <p class="pl-5 text-gray-700 text-sm">Plants grow vigorously now. Hill soil around base for stability. Apply liquid biofertilizer (Azotobacter/Phosphobacteria) for nutrient boost.</p>
+          </details>
+        </div>
+      </div>
+
+      <!-- Phase 4: Tasseling to Silking -->
+      <div class="bg-white rounded-3xl shadow-2xl border-l-[6px] border-yellow-600 hover:shadow-yellow-200 transition-shadow duration-300">
+        <button onclick="toggleCollapse(this)" class="w-full text-left px-6 py-5 bg-yellow-100 hover:bg-yellow-200 font-semibold text-2xl text-yellow-800 tracking-wide">
+          Phase 4: Flowering & Pollination (Weeks 7–9)
+        </button>
+        <div class="collapse-content px-6 py-4 space-y-4">
+          <details class="group">
+            <summary class="cursor-pointer font-semibold text-lg group-open:text-yellow-700 transition">Week 7: Tasseling</summary>
+            <p class="pl-5 text-gray-700 text-sm">Male flowers (tassels) emerge. Maintain even irrigation. Avoid water stress. Apply banana or cow dung slurry to boost micronutrients.</p>
+          </details>
+          <details class="group">
+            <summary class="cursor-pointer font-semibold text-lg group-open:text-yellow-700 transition">Week 8–9: Silking</summary>
+            <p class="pl-5 text-gray-700 text-sm">Female silks appear. Pollination occurs now. Ensure good airflow. Use neem-based sprays if aphids or borers are seen.</p>
+          </details>
+        </div>
+      </div>
+
+      <!-- Phase 5: Grain Formation to Harvest -->
+      <div class="bg-white rounded-3xl shadow-2xl border-l-[6px] border-yellow-600 hover:shadow-yellow-200 transition-shadow duration-300">
+        <button onclick="toggleCollapse(this)" class="w-full text-left px-6 py-5 bg-yellow-100 hover:bg-yellow-200 font-semibold text-2xl text-yellow-800 tracking-wide">
+          Phase 5: Grain Development & Harvest (Weeks 10–14)
+        </button>
+        <div class="collapse-content px-6 py-4 space-y-4">
+          <details class="group">
+            <summary class="cursor-pointer font-semibold text-lg group-open:text-yellow-700 transition">Week 10–12: Cob Filling</summary>
+            <p class="pl-5 text-gray-700 text-sm">Kernels fill rapidly. Maintain moderate irrigation. Apply potash-rich liquid fertilizer like banana pseudostem extract.</p>
+          </details>
+          <details class="group">
+            <summary class="cursor-pointer font-semibold text-lg group-open:text-yellow-700 transition">Week 13–14: Maturity & Harvest</summary>
+            <p class="pl-5 text-gray-700 text-sm">Cobs mature when husks turn brown and kernels harden. Harvest early morning or late evening. Dry cobs well before storage.</p>
+          </details>
+        </div>
+      </div>
+
+      <!-- Organic Tips -->
+      <div class="bg-white rounded-3xl shadow-2xl border-l-[6px] border-yellow-600 hover:shadow-yellow-200 transition-shadow duration-300">
+        <button onclick="toggleCollapse(this)" class="w-full text-left px-6 py-5 bg-yellow-100 hover:bg-yellow-200 font-semibold text-2xl text-yellow-800 tracking-wide">
+          🌿 Organic Growing Tips
+        </button>
+        <div class="collapse-content px-6 py-4 text-sm text-gray-700">
+          <ul class="list-disc list-inside space-y-1">
+            <li>Choose early-maturing varieties for summer and monsoon seasons in Madurai.</li>
+            <li>Use border crops like sunflower or marigold to deter pests.</li>
+            <li>Intercrop with legumes (cowpea) to enhance soil nitrogen.</li>
+            <li>Apply neem cake and Trichoderma viride during land prep.</li>
+            <li>Use yellow sticky traps for aphids and borers.</li>
+            <li>Regular use of jeevamrutham improves plant immunity and yield.</li>
+            <li>Rotate crops with pulses or vegetables to reduce soil fatigue.</li>
+          </ul>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gradient-to-r from-yellow-700 to-green-500 text-white py-6 text-center shadow-inner">
+    <p class="text-sm">&copy; 2025 Madurai Organic Farmers – Corn Cultivation Unit 🌽</p>
+  </footer>
+
+  <!-- Collapse JS -->
+  <script>
+    function toggleCollapse(button) {
+      const content = button.nextElementSibling;
+      content.classList.toggle("open");
+    }
+  </script>
+</body>
+</html>

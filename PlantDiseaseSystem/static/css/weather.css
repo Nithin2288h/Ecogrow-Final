@@ -1,0 +1,302 @@
+/* ====== Global ====== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  color: #fff;
+  background: url("https://www.hdwallpapers.in/download/dark_forest_background_hd_dark-HD.jpg") no-repeat center center/cover;
+  min-height: 100vh;
+}
+
+/* ====== Header / Navbar ====== */
+.navbar {
+  width: 100%;
+  padding: 15px 40px;
+  background: #1b5e20; /* Green header only */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar .logo {
+  font-size: 26px;
+  font-weight: 700;
+  color: #d1f7d6;
+}
+
+.navbar nav a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 15px;
+  transition: 0.3s;
+}
+
+.navbar nav a:hover {
+  color: #b2fab4;
+}
+
+/* ====== Weather Header ====== */
+.weather-header {
+  width: 100%;
+  background: #1b5e20;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 40px 18px 40px;
+  box-sizing: border-box;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+}
+
+.weather-header .header-title {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.weather-header .header-search-bar {
+  display: flex;
+  gap: 10px;
+}
+
+.weather-header .header-search-bar input {
+  padding: 0.7rem 1.2rem;
+  border: none;
+  border-radius: 30px 0 0 30px;
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+  font-size: 1rem;
+  outline: none;
+  min-width: 200px;
+}
+
+.weather-header .header-search-bar input::placeholder {
+  color: #e0e0e0;
+}
+
+.weather-header .header-search-bar button {
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: 0 30px 30px 0;
+  background: #fff;
+  color: #1b5e20;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.weather-header .header-search-bar button:hover {
+  background: #b2fab4;
+  color: #1b5e20;
+}
+
+/* ====== Weather Section ====== */
+.weather-container {
+  position: relative;
+  width: 100%;
+  padding: 50px 0;
+}
+
+.overlay {
+  background: rgba(0, 0, 0, 0.65);
+  width: 100%;
+  height: 100%;
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.weather-content {
+  max-width: 1100px;
+  width: 100%;
+  background: rgba(20, 20, 20, 0.6);
+  border-radius: 16px;
+  padding: 30px 40px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(6px);
+}
+
+/* ====== Search Bar ====== */
+.search-bar {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.search-bar input {
+  width: 300px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px 0 0 6px;
+  outline: none;
+  font-size: 16px;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+.search-bar input::placeholder {
+  color: #ccc;
+}
+
+.search-bar button {
+  padding: 10px 20px;
+  background: #1b5e20;
+  border: none;
+  color: #fff;
+  border-radius: 0 6px 6px 0;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.search-bar button:hover {
+  background: #2e7d32;
+}
+
+/* ====== Main Weather ====== */
+.main-weather {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.main-weather .location {
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.main-weather .temperature {
+  font-size: 64px;
+  font-weight: bold;
+  color: #b2fab4;
+}
+
+.main-weather .condition {
+  font-size: 22px;
+  margin: 10px 0;
+}
+
+.main-weather .date {
+  font-size: 16px;
+  color: #ccc;
+}
+
+/* ====== Weather Details Cards ====== */
+.weather-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 15px;
+  margin-bottom: 40px;
+}
+
+.weather-details .card {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(144, 238, 144, 0.2);
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 15px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+  transition: 0.3s;
+}
+
+.weather-details .card:hover {
+  transform: translateY(-5px);
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.weather-details .card i {
+  font-size: 24px;
+  color: #b2fab4;
+  margin-bottom: 10px;
+}
+
+.weather-details .card p {
+  color: #ccc;
+  margin-bottom: 5px;
+}
+
+.weather-details .card span {
+  display: block;
+  font-weight: bold;
+  color: #b2fab4;
+  font-size: 18px;
+}
+
+/* ====== Forecast ====== */
+.forecast {
+  text-align: center;
+}
+
+.forecast h2 {
+  margin-bottom: 20px;
+  color: #b2fab4;
+  font-weight: 500;
+}
+
+.forecast-grid {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.forecast-grid .day {
+  flex: 1;
+  min-width: 140px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  padding: 15px;
+  transition: 0.3s;
+  border: 1px solid rgba(144, 238, 144, 0.2);
+}
+
+.forecast-grid .day:hover {
+  transform: translateY(-5px);
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.forecast-grid .day p.weekday {
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.forecast-grid .day i {
+  font-size: 24px;
+  color: #b2fab4;
+  margin: 10px 0;
+}
+
+.forecast-grid .day p.temp {
+  font-size: 20px;
+  font-weight: bold;
+  color: #b2fab4;
+  margin: 10px 0;
+}
+
+.forecast-grid .day p.condition {
+  font-size: 14px;
+  color: #ccc;
+}
+
+.forecast-grid .day span {
+  font-size: 24px;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.forecast-grid .day h3 {
+  font-size: 22px;
+  color: #b2fab4;
+}
